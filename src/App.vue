@@ -1,27 +1,23 @@
 <template>
   <div id="app">
     <el-container class="app-out-panel">
-      <el-header class="sys-header">一张图项目系统</el-header>
+      <el-header class="sys-header">自然资源调查监测项目系统</el-header>
       <el-container class="app-content-panel">
-
         <el-aside class="sys-menu">
-          <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+          <el-menu default-active="1" class="el-menu-vertical-demo" @select="handleMenuSelect"
             background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :collapse="true">
-
             <el-menu-item index="1">
               <i class="el-icon-monitor"></i>
               <span slot="title">首页大屏</span>
             </el-menu-item>
-
             <el-menu-item index="2">
               <i class="el-icon-picture-outline"></i>
               <span slot="title">一张图</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
-
         <el-main class="sys-content">
-          <Mapview />
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -29,21 +25,21 @@
 </template>
 
 <script>
-import Mapview from './components/common/Mapview';
 export default {
   name: 'App',
-  components: {
-    Mapview,
-  },
+  components: {},
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+    handleMenuSelect(index) {
+      if (index == '1') {
+        //跳转到首页大屏
+        this.$router.push('/');
+      } else if (index == '2') {
+        //跳转到一张图
+        this.$router.push('/onemap');
+      }
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -77,9 +73,4 @@ body,
 .sys-content {
   padding: 5px !important;
 }
-
-/* .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
-} */
 </style>
